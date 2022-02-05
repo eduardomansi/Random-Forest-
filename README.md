@@ -30,15 +30,15 @@ The following table describes the dataset attributes:
 
 RANDOM FOREST
 
-Since a decision tree can encounter over-fitting issues and it can also ignore explanatory predictors when there&#39;s a small sample size and a large p-value, we decided to create a random forest model and put it to the test.
+Since a decision tree can encounter over-fitting issues and it can also ignore explanatory predictors when there&#39;s a small sample size and a large p-value, I decided to create a random forest model and put it to the test.
 
 Method:
 
-For this model, we didn&#39;t have to partition the dataset into training and validation sets since the random forest pick a sample with replacement from the dataset as its training set for every individual tree. Those not considered in the training set for a specific tree are going to be used later on to test the prediction power. The records that were not used to build a tree are referred to as Out-Of-Bag (OOB).
+For this model, I didn&#39;t had to partition the dataset into training and validation sets since the random forest pick a sample with replacement from the dataset as its training set for every individual tree. Those not considered in the training set for a specific tree are going to be used later on to test the prediction power. The records that were not used to build a tree are referred to as Out-Of-Bag (OOB).
 
-At first, we ran the model with the default values (number of trees 500, variables to consider at each splitting node 4) for the whole database. We ended up getting an OOB error of 19.01%, which translates into 80.99% of accuracy. It came to our minds that maybe different tastes for music along the decades could be canceling the effects from the predictors to the target variable (the characteristics that made a hit in the 60s might be different from those in the 2010s).
+At first, I ran the model with the default values (number of trees 500, variables to consider at each splitting node 4) for the whole database. I ended up getting an OOB error of 19.01%, which translates into 80.99% of accuracy. It came to my mind that maybe different tastes for music along the decades could be canceling the effects from the predictors to the target variable (the characteristics that made a hit in the 60s might be different from those in the 2010s).
 
-Since we are trying to predict a hit or a flop as for today, and we also know that the more data the better (as long as it doesn&#39;t contain errors or misleading info like it could be from other decades taste for songs), we decided to try the latest data adding the following decade each time and looking for the accuracy behavior.
+Since we are trying to predict a hit or a flop as for today, and we also know that the more data the better (as long as it doesn&#39;t contain errors or misleading info like it could be from other decades taste for songs), I decided to try the latest data adding the following decade each time and looking for the accuracy behavior.
 
 We got:
 
@@ -49,13 +49,13 @@ We got:
 | 2010s, 2000s and 1990s | 14.9% |
 | 2010s,2000s, 90s and 80s | 16.51 % |
 
-We could notice that when considering the 80s, a lot of noise and confusion was added to our model, losing prediction power. So, we consider utilizing only the data conformed from the 90s, 2000s, and 2010s.
+We can notice that when considering the 80s, a lot of noise and confusion was added to the model, losing prediction power. So, I consider utilizing only the data conformed from the 90s, 2000s, and 2010s.
 
-As for our next step, we searched for a proper number of trees to consider. To do so, we plotted the Out-of-Bag errors by the number of trees considered in the model. As we can see in FIG1. 500 trees look to be a good number of trees since the errors are not decreasing anymore in a meaningful way, it looks like by 500 trees we are already observing convergence.
+As for the next step, I searched for a proper number of trees to consider. To do so, I plotted the Out-of-Bag errors by the number of trees considered in the model. As we can see in FIG1. 500 trees look to be a good number of trees since the errors are not decreasing anymore in a meaningful way, it looks like by 500 trees we are already observing convergence.
 
-Then, we searched for the optimal number of variables to consider at each split.
+Then, we search for the optimal number of variables to consider at each split.
 
-To do so, we computed the OOB errors when considering 1 variable all the way to 10 variables.
+To do so, I computed the OOB errors when considering 1 variable all the way to 10 variables.
 
 The results were as follows:
 
@@ -80,7 +80,7 @@ In conclusion, in this prediction model, we generated a random forest that invol
 
 We can observe the confusion matrix in FIG2 to notice that the overall OOB error comes from a 19.43% error from wrongly predicting flops and a 10.37% error from wrongly predicting hits.
 
-As for the predictor&#39;s importance, we plotted their permutation importance in FIG 3 which clearly highlights instrumentalness as the most important factor. Just for interpretation purposes, the way these values are determined comes from permuting all the OOB values from a predictor (so you break the real relationship with the target) and then try them with each tree. If the error after permuting the predictor&#39;s values doesn&#39;t increase significantly, then it means that the variable wasn&#39;t very important. Then the difference between the error from the real data and the permuted data for a specific predictor is going to be averaged across all trees and normalized by the standard deviation of the differences. So, in the end, the variables with the higher difference between errors (Highest decrease of accuracy) are going to be the most important for our model.
+As for the predictor&#39;s importance, I plotted their permutation importance in FIG 3 which clearly highlights instrumentalness as the most important factor. Just for interpretation purposes, the way these values are determined comes from permuting all the OOB values from a predictor (so you break the real relationship with the target) and then try them with each tree. If the error after permuting the predictor&#39;s values doesn&#39;t increase significantly, then it means that the variable wasn&#39;t very important. Then the difference between the error from the real data and the permuted data for a specific predictor is going to be averaged across all trees and normalized by the standard deviation of the differences. So, in the end, the variables with the higher difference between errors (Highest decrease of accuracy) are going to be the most important for our model.
 
 FIG1.
 
